@@ -21,12 +21,12 @@ public class Produto {
 	@Column(nullable = false)
 	private BigDecimal preco;
 
-	private Categoria categoria;
+	private Cliente categoria;
 
 	public Produto() {
 	}
 
-	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
+	public Produto(String nome, String descricao, BigDecimal preco, Cliente categoria) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
@@ -65,11 +65,11 @@ public class Produto {
 		this.preco = preco;
 	}
 
-	public Categoria getCategoria() {
+	public Cliente getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(Cliente categoria) {
 		this.categoria = categoria;
 	}
 
