@@ -2,11 +2,15 @@ package market.models.persistence;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Produto {
@@ -21,12 +25,15 @@ public class Produto {
 	@Column(nullable = false)
 	private BigDecimal preco;
 
-	private Cliente categoria;
+	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,
+			CascadeType.PERSIST,CascadeType.REFRESH},fetch=FetchType.LAZY)
+	@JoinColumn(name = "id_categoria")
+	private Categoria categoria;
 
 	public Produto() {
 	}
 
-	public Produto(String nome, String descricao, BigDecimal preco, Cliente categoria) {
+	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
@@ -65,11 +72,11 @@ public class Produto {
 		this.preco = preco;
 	}
 
-	public Cliente getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Cliente categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
