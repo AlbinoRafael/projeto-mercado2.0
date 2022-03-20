@@ -22,29 +22,26 @@ public class ClienteDAO {
 		this.entityManager.remove(cliente);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Cliente> listaTodosClientes() {
-		String sql = "SELECT * FROM cliente";
-		return this.entityManager.createNativeQuery(sql, Cliente.class).getResultList();
+		String jpql = "SELECT c FROM Cliente c";
+		return this.entityManager.createQuery(jpql, Cliente.class).getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Cliente> listaClientesPorNome(String nome) {
 		String nomeFormt = nome.toLowerCase();
-		String sql = "SELECT * FROM cliente where nome = nome";
-		return this.entityManager.createNativeQuery(sql, Cliente.class).setParameter("nome", nomeFormt).getResultList();
+		String jpql = "SELECT c FROM Cliente c where c.nome like :nome";
+		return this.entityManager.createQuery(jpql, Cliente.class).setParameter("nome", nomeFormt).getResultList();
 	}
 
-	public Cliente clientePorId(int id) {
-		String sql = "SELECT * FROM cliente where id = id";
-		return (Cliente) this.entityManager.createNativeQuery(sql, Cliente.class).setParameter("id", id)
-				.getSingleResult();
+	public Cliente clientePorId(Long id) {
+		String jpql = "SELECT c FROM Cliente c where c.id = :id";
+		return (Cliente) this.entityManager.createQuery(jpql, Cliente.class).setParameter("id", id).getSingleResult();
 	}
 
 	public Cliente clientePorNome(String nome) {
 		String nomeFormt = nome.toLowerCase();
-		String sql = "SELECT * FROM cliente where nome = nome";
-		return (Cliente) this.entityManager.createNativeQuery(sql, Cliente.class).setParameter("nome", nomeFormt)
+		String jpql = "SELECT c FROM cliente c where c.nome = :nome";
+		return (Cliente) this.entityManager.createQuery(jpql, Cliente.class).setParameter("nome", nomeFormt)
 				.getSingleResult();
 	}
 

@@ -24,29 +24,29 @@ public class ProdutoDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Produto> listaTodosProdutos() {
-		String sql = "SELECT * FROM produto";
-		return (List<Produto>) this.entityManager.createNativeQuery(sql, Produto.class).getResultList();
+		String sql = "SELECT p FROM Produto p";
+		return (List<Produto>) this.entityManager.createQuery(sql, Produto.class).getResultList();
 
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Produto> listaProdutosPorNome(String nome) {
 		String nomeFormt = nome.toLowerCase();
-		String sql = "SELECT * FROM produto where nome like nome";
-		return (List<Produto>) this.entityManager.createNativeQuery(sql, Produto.class).setParameter("nome", nomeFormt)
+		String sql = "SELECT p FROM Produto p where p.nome = :nome";
+		return (List<Produto>) this.entityManager.createQuery(sql, Produto.class).setParameter("nome", nomeFormt)
 				.getResultList();
 
 	}
 
-	public Produto produtoPorId(int id) {
-		String sql = "SELECT * FROM produto where id = id";
-		return this.entityManager.createNamedQuery(sql, Produto.class).setParameter("id", id).getSingleResult();
+	public Produto produtoPorId(Long id) {
+		String sql = "SELECT p FROM Produto p where p.id = id";
+		return (Produto) this.entityManager.createQuery(sql, Produto.class).setParameter("id", id).getSingleResult();
 	}
 
 	public Produto produtoPorNome(String nome) {
 		String nomeFormt = nome.toLowerCase();
-		String sql = "SELECT * FROM produto where nome = nome";
-		return this.entityManager.createNamedQuery(sql, Produto.class).setParameter("nome", nomeFormt)
+		String sql = "SELECT p FROM Produto p where p.nome = :nome";
+		return (Produto) this.entityManager.createQuery(sql, Produto.class).setParameter("nome", nomeFormt)
 				.getSingleResult();
 	}
 
